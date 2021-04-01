@@ -10,14 +10,13 @@
         android:id="@+id/scrollingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:singleLine="true"
         android:scrollHorizontally="true"
         android:textColor="@android:color/holo_blue_dark"
         android:textColorHighlight="@android:color/darker_gray"
         android:textSize="24sp"
-        android:text="This ticker will display all the coin prices selected"
         />
 
     <Button
@@ -26,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
-        android:text="GET DATA" />
+        android:layout_marginTop="100dp"
+        android:text="REFRESH TICKER" />
 
     <Button
         android:id="@+id/clear_data"
@@ -35,14 +34,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="275dp"
-        android:text="CLEAR DATA" />
+        android:layout_marginTop="200dp"
+        android:text="GET LEDGER" />
 
     <TextView
         android:id="@+id/tempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350sp"
+        android:layout_marginTop="300sp"
+        android:layout_centerHorizontal="true"
         android:text="Nothing yet..." />
 
 </RelativeLayout>

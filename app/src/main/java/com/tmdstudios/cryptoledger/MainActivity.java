@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         createProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                guest();
             }
         });
 
@@ -53,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logIn(){
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("api_key", "API KEY HERE");
+        startActivity(intent);
+    }
+
+    public void guest(){
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }

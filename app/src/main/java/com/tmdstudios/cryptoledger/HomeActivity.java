@@ -2,6 +2,7 @@ package com.tmdstudios.cryptoledger;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button clearDataBtn;
     private TextView textView;
     private TextView tempText;
+    private String API_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +37,16 @@ public class HomeActivity extends AppCompatActivity {
         textView.setSelected(true);
 
         tempText = findViewById(R.id.tempText);
-        parseJson();
+        getPrices();
+
+        Intent getKey = getIntent();
+        API_KEY = getKey.getStringExtra("api_key");
 
         getDataBtn = findViewById(R.id.get_data);
         getDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                parseJson();
+                getPrices();
             }
         });
 
@@ -49,12 +54,13 @@ public class HomeActivity extends AppCompatActivity {
         clearDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tempText.setText("");
+                textView.setText("");
+                getLedger();
             }
         });
     }
 
-    private void parseJson(){
+    private void getPrices(){
         String url = "https://crypto-ledger.herokuapp.com/api/get-prices";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -64,8 +70,37 @@ public class HomeActivity extends AppCompatActivity {
                         try {
                             for(int i = 0; i < response.length(); i++){
                                 JSONObject coin = response.getJSONObject(i);
+                                String name = coin.getString("symbol");
+                                String price = coin.getString("price");
+                                textView.append(" " + name + " - " + price.substring(0,price.length()-6) + " ");
+                            }
+                        } catch (JSONException e) {e.printStackTrace();}
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        RequestQueue mQueue = Volley.newRequestQueue(this);
+        mQueue.add(request);
+    }
+
+    private void getLedger(){
+        String url = "https://crypto-ledger.herokuapp.com/api/get-user-ledger/"+API_KEY;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        tempText.setText("");
+                        try {
+                            for(int i = 0; i < response.length(); i++){
+                                JSONObject coin = response.getJSONObject(i);
                                 String name = coin.getString("name");
-                                tempText.append(name);
+                                String price = coin.getString("total_value");
+                                tempText.append(name + " Total Value: " + price.substring(0,price.length()-6) + "\n");
                             }
                         } catch (JSONException e) {e.printStackTrace();}
                     }
