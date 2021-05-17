@@ -41,8 +41,43 @@
         android:id="@+id/tempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300sp"
+        android:layout_marginTop="280sp"
         android:layout_centerHorizontal="true"
         android:text="Nothing yet..." />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#BDF9EF"
+        android:padding="10dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="320sp"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/coinName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingStart="20dp"
+            android:text="Coin Name"
+            />
+        <TextView
+            android:id="@+id/coinPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:paddingStart="20dp"
+            android:text="Price"
+            />
+        <TextView
+            android:id="@+id/coinTrend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="70dp"
+            android:paddingStart="20dp"
+            android:text="Trend"
+            />
+        </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
