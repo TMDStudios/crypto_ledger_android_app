@@ -25,6 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity {
     private Button getDataBtn;
     private Button clearDataBtn;
@@ -35,6 +38,9 @@ public class HomeActivity extends AppCompatActivity {
     private TextView coinName;
     private TextView coinPrice;
     private TextView coinTrend;
+    private int coinNum = 0;
+    private int availableCoins = 0;
+    private List<List<String>> coins = new ArrayList<>();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -47,7 +53,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 super.onTouch(cardView, motionEvent);
-                Toast.makeText(HomeActivity.this, "Card on touch", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "Card on touch", Toast.LENGTH_SHORT).show();
+                if(coinNum<availableCoins-1){coinNum++;}else{coinNum=0;}
+//                Toast.makeText(HomeActivity.this, coinNum + "::" + coins.get(coinNum), Toast.LENGTH_SHORT).show();
+                coinName.setText(coins.get(coinNum).get(0));
+                coinPrice.setText(coins.get(coinNum).get(1));
+                coinTrend.setText(coins.get(coinNum).get(2));
                 return false;
             }
         });
@@ -123,14 +134,27 @@ public class HomeActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         tempText.setText("");
                         try {
+                            availableCoins=response.length();
                             for(int i = 0; i < response.length(); i++){
                                 JSONObject coin = response.getJSONObject(i);
                                 String name = coin.getString("name");
                                 String price = coin.getString("total_value");
                                 tempText.append(name + " Total Value: " + price.substring(0,price.length()-6) + "\n");
+                                String currentPrice = coin.getString("current_price");
+                                String priceDifference = coin.getString("price_difference");
+                                if(currentPrice.length()>8){
+                                    currentPrice = currentPrice.substring(0,currentPrice.length()-6);
+                                }
+                                priceDifference = priceDifference.substring(0,8);
                                 coinName.setText(coin.getString("name"));
-                                coinPrice.setText(coin.getString("current_price"));
-                                coinTrend.setText(coin.getString("price_difference"));
+                                coinPrice.setText(currentPrice);
+                                coinTrend.setText(priceDifference);
+                                coins.add(new ArrayList<>());
+                                coins.get(i).add(coin.getString("name"));
+                                if(currentPrice.length()>8){
+                                    coins.get(i).add(currentPrice.substring(0,currentPrice.length()-6));
+                                }else{coins.get(i).add(currentPrice);}
+                                coins.get(i).add(priceDifference);
                             }
                         } catch (JSONException e) {e.printStackTrace();}
                     }

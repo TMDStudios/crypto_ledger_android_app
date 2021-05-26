@@ -10,7 +10,7 @@
         android:id="@+id/scrollingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:singleLine="true"
         android:scrollHorizontally="true"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="REFRESH TICKER" />
 
     <Button
@@ -34,14 +34,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="100dp"
         android:text="GET LEDGER" />
 
     <TextView
         android:id="@+id/tempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="280sp"
+        android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
         android:text="Nothing yet..." />
 
@@ -50,9 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#BDF9EF"
-        android:padding="10dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="320sp"
+        android:padding="32dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="320dp"
         android:layout_centerHorizontal="true">
         <TextView
             android:id="@+id/coinName"
@@ -61,7 +61,7 @@
             android:paddingTop="10dp"
             android:paddingStart="20dp"
             android:text="Coin Name"
-            />
+            tools:ignore="RtlSymmetry" />
         <TextView
             android:id="@+id/coinPrice"
             android:layout_width="wrap_content"
@@ -69,15 +69,16 @@
             android:paddingTop="40dp"
             android:paddingStart="20dp"
             android:text="Price"
-            />
+            tools:ignore="RtlSymmetry" />
         <TextView
             android:id="@+id/coinTrend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="70dp"
             android:paddingStart="20dp"
+            android:paddingBottom="10dp"
             android:text="Trend"
-            />
+            tools:ignore="RtlSymmetry" />
         </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
