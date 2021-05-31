@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -56,9 +57,13 @@ public class HomeActivity extends AppCompatActivity {
 //                Toast.makeText(HomeActivity.this, "Card on touch", Toast.LENGTH_SHORT).show();
                 if(coinNum<availableCoins-1){coinNum++;}else{coinNum=0;}
 //                Toast.makeText(HomeActivity.this, coinNum + "::" + coins.get(coinNum), Toast.LENGTH_SHORT).show();
-                coinName.setText(coins.get(coinNum).get(0));
-                coinPrice.setText(coins.get(coinNum).get(1));
-                coinTrend.setText(coins.get(coinNum).get(2));
+                if(availableCoins>0){
+                    coinName.setText(coins.get(coinNum).get(0));
+                    coinPrice.setText("Price: " + coins.get(coinNum).get(1));
+                    coinTrend.setText("Trend: " + coins.get(coinNum).get(2));
+                    if(coins.get(coinNum).get(2).startsWith("-")){coinTrend.setTextColor(Color.RED);}
+                    else{coinTrend.setTextColor(Color.GREEN);}
+                }
                 return false;
             }
         });
@@ -95,7 +100,6 @@ public class HomeActivity extends AppCompatActivity {
                 getLedger();
             }
         });
-
     }
 
     private void getPrices(){
@@ -147,8 +151,10 @@ public class HomeActivity extends AppCompatActivity {
                                 }
                                 priceDifference = priceDifference.substring(0,8);
                                 coinName.setText(coin.getString("name"));
-                                coinPrice.setText(currentPrice);
-                                coinTrend.setText(priceDifference);
+                                coinPrice.setText("Price: " + currentPrice);
+                                coinTrend.setText("Trend: " + priceDifference);
+                                if(priceDifference.startsWith("-")){coinTrend.setTextColor(getResources().getColor(R.color.design_default_color_error));}
+                                else{coinTrend.setTextColor(getResources().getColor(R.color.black));}
                                 coins.add(new ArrayList<>());
                                 coins.get(i).add(coin.getString("name"));
                                 if(currentPrice.length()>8){
