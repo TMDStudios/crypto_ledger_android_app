@@ -42,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     private int coinNum = 0;
     private int availableCoins = 0;
     private List<List<String>> coins = new ArrayList<>();
+    private Button viewAllPricesBtn;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -98,6 +99,14 @@ public class HomeActivity extends AppCompatActivity {
                 textView.setText("");
                 Toast.makeText(HomeActivity.this, "Getting Ledger", Toast.LENGTH_SHORT).show();
                 getLedger();
+            }
+        });
+
+        viewAllPricesBtn = findViewById(R.id.allPrices);
+        viewAllPricesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewAllPrices();
             }
         });
     }
@@ -173,6 +182,13 @@ public class HomeActivity extends AppCompatActivity {
 
         RequestQueue mQueue = Volley.newRequestQueue(this);
         mQueue.add(request);
+    }
+
+    public void viewAllPrices(){
+        Intent intent = new Intent(this, ViewPricesActivity.class);
+//        Toast.makeText(HomeActivity.this, textView.getText(), Toast.LENGTH_SHORT).show();
+        intent.putExtra("tickerData", "add price data here");
+        startActivity(intent);
     }
 
 }
