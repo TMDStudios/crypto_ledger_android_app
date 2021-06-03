@@ -186,8 +186,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public void viewAllPrices(){
         Intent intent = new Intent(this, ViewPricesActivity.class);
-//        Toast.makeText(HomeActivity.this, textView.getText(), Toast.LENGTH_SHORT).show();
-        intent.putExtra("tickerData", "add price data here");
+        String prices = "" + textView.getText();
+        intent.putExtra("tickerData", prices);
         startActivity(intent);
     }
 

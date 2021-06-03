@@ -16,7 +16,6 @@ public class ViewPricesActivity extends AppCompatActivity {
     private TextView tickerText;
     private CardView cardView;
     private TextView coinName;
-    private String prices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +38,6 @@ public class ViewPricesActivity extends AppCompatActivity {
         coinName = findViewById(R.id.coinName);
 
         Intent getPrices = getIntent();
-        prices = getPrices.getStringExtra("tickerData");
-        Toast.makeText(ViewPricesActivity.this, prices, Toast.LENGTH_SHORT).show();
-        tickerText.append(prices);
+        tickerText.append(getPrices.getStringExtra("tickerData"));
     }
 }
