@@ -3,11 +3,14 @@ package com.tmdstudios.cryptoledger;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     private Button createProfileBtn;
     private Button loginBtn;
     private TextView textView;
+    private EditText editText;
+
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private String tempAPI;
+    private Boolean apiAccepted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.scrollingText);
         textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         textView.setSelected(true);
+
+        editText = findViewById(R.id.APIKey);
 
         createProfileBtn = findViewById(R.id.createProfile);
         createProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +65,43 @@ public class MainActivity extends AppCompatActivity {
 
     public void logIn(){
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("api_key", "API KEY HERE");
-        startActivity(intent);
+        sharedPreferences = MainActivity.this.getPreferences(MODE_PRIVATE);
+        tempAPI = sharedPreferences.getString("APIKey", "");
+        editText.setText(tempAPI);
+        try{
+            String url = "https://crypto-ledger.herokuapp.com/api/get-user-ledger/"+tempAPI;
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            if(response.length()>0){
+                                apiAccepted = true;
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+
+            RequestQueue mQueue = Volley.newRequestQueue(this);
+            mQueue.add(request);
+
+        }catch(Exception e){
+            Toast.makeText(MainActivity.this, "Invalid API Key", Toast.LENGTH_SHORT).show();
+        }
+        if(apiAccepted){
+            tempAPI = ""+editText.getText();
+            editor = sharedPreferences.edit();
+            editor.putString("APIKey", tempAPI);
+            editor.apply();
+            intent.putExtra("api_key", tempAPI);
+            startActivity(intent);
+        }else{
+            Toast.makeText(MainActivity.this, "Invalid API Key", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void guest(){
