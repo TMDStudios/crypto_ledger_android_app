@@ -86,8 +86,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent getKey = getIntent();
         API_KEY = getKey.getStringExtra("api_key");
 
-//        ledgerGetter = new GetLedger(API_KEY, HomeActivity.this);
-
         getDataBtn = findViewById(R.id.get_data);
         getDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 textView.setText("");
-                Toast.makeText(HomeActivity.this, "Getting Ledger", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HomeActivity.this, "Getting Ledger", Toast.LENGTH_SHORT).show();
                 getLedger();
             }
         });

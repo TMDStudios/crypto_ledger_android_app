@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledger.tools;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,7 +23,12 @@ public class GetLedger {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        if(response.length()>0){ledgerData=response; ledgerReady=true;}
+                        if(response.length()>0){
+                            ledgerData=response;
+                            ledgerReady=true;
+//                            Toast.makeText(context, "GOT: "+ledgerData.toString(), Toast.LENGTH_SHORT).show();
+                        }
+//                        Toast.makeText(context, "ledger has been checked", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -30,5 +36,7 @@ public class GetLedger {
                 error.printStackTrace();
             }
         });
+        RequestQueue mQueue = Volley.newRequestQueue(context);
+        mQueue.add(request);
     }
 }
