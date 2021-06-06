@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private String tempAPI;
     private Boolean apiAccepted = false;
+    private Boolean apiChecked = false;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +63,20 @@ public class MainActivity extends AppCompatActivity {
                 logIn();
             }
         });
+
+        getAPI();
     }
 
-    public void logIn(){
-        Intent intent = new Intent(this, HomeActivity.class);
+    private void getAPI(){
+        intent = new Intent(this, HomeActivity.class);
         sharedPreferences = MainActivity.this.getPreferences(MODE_PRIVATE);
         tempAPI = sharedPreferences.getString("APIKey", "");
         editText.setText(tempAPI);
+    }
+
+    public void logIn(){
+        if(editText.getText().length()>0){tempAPI=""+editText.getText();}
+        Toast.makeText(MainActivity.this, "Checking API Key", Toast.LENGTH_SHORT).show();
         try{
             String url = "https://crypto-ledger.herokuapp.com/api/get-user-ledger/"+tempAPI;
             RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -77,6 +86,16 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(JSONArray response) {
                             if(response.length()>0){
                                 apiAccepted = true;
+                                tempAPI = ""+editText.getText();
+                                editor = sharedPreferences.edit();
+                                editor.putString("APIKey", tempAPI);
+                                editor.apply();
+                                intent.putExtra("api_key", tempAPI);
+                                startActivity(intent);
+                            }else{
+//                                This might need work...
+                                editText.setText("");
+                                Toast.makeText(MainActivity.this, "Invalid API Key", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }, new Response.ErrorListener() {
@@ -90,17 +109,7 @@ public class MainActivity extends AppCompatActivity {
             mQueue.add(request);
 
         }catch(Exception e){
-            Toast.makeText(MainActivity.this, "Invalid API Key", Toast.LENGTH_SHORT).show();
-        }
-        if(apiAccepted){
-            tempAPI = ""+editText.getText();
-            editor = sharedPreferences.edit();
-            editor.putString("APIKey", tempAPI);
-            editor.apply();
-            intent.putExtra("api_key", tempAPI);
-            startActivity(intent);
-        }else{
-            Toast.makeText(MainActivity.this, "Invalid API Key", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Unable to process API Key", Toast.LENGTH_SHORT).show();
         }
     }
 
