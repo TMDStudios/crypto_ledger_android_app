@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:singleLine="true"
         android:scrollHorizontally="true"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@color/charcoal"
         android:textColorHighlight="@android:color/darker_gray"
         android:textSize="24sp"
         />
@@ -28,35 +28,11 @@
         android:layout_marginTop="50dp"
         android:text="REFRESH PRICES" />
 
-<!--    <ScrollView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:id="@+id/cardView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="#BDF9EF"-->
-<!--            android:padding="32dp"-->
-<!--            android:layout_marginStart="48dp"-->
-<!--            android:layout_marginEnd="48dp"-->
-<!--            android:backgroundTint="@color/purple_200"-->
-<!--            android:layout_marginTop="120dp">-->
-<!--            <TextView-->
-<!--                android:id="@+id/coinName"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:paddingStart="20dp"-->
-<!--                android:text="Coin Info"-->
-<!--                android:textStyle="bold"-->
-<!--                tools:ignore="RtlSymmetry" />-->
-<!--        </androidx.cardview.widget.CardView>-->
-<!--    </ScrollView>-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RVCoin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="110dp"
         />
 
 

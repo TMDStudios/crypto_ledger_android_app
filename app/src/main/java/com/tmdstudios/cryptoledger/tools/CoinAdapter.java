@@ -39,11 +39,11 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
         String price1h = "1h:  " + model.getPrice1h() + "%";
         holder.price1h.setText(price1h);
         if(model.getPrice1h().startsWith("-")){holder.price1h.setTextColor(Color.RED);}
-        else{holder.price1h.setTextColor(Color.GREEN);}
+        else{holder.price1h.setTextColor(Color.argb(255,34,139,34));}
         String price24h = "24h:  " + model.getPrice24h() + "%";
         holder.price24h.setText(price24h);
         if(model.getPrice24h().startsWith("-")){holder.price24h.setTextColor(Color.RED);}
-        else{holder.price24h.setTextColor(Color.GREEN);}
+        else{holder.price24h.setTextColor(Color.argb(255,34,139,34));}
         holder.priceBTC.setText(model.getPriceBTC());
         holder.priceETH.setText(model.getPriceETH());
     }

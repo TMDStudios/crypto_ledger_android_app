@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/baby_blue"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
@@ -34,39 +34,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:drawablePadding="2dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/coinName"
+            android:textColor="@color/light_charcoal"
             android:text="Coin Price" />
 
         <LinearLayout
             android:id="@+id/priceChange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/coinPrice"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/border"
-            >
-            <TextView
-                android:id="@+id/coinTrend"
-                android:layout_width="wrap_content"
+            android:layout_below="@id/coinPrice">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Price Trend:" />
-            <TextView
-                android:id="@+id/price1h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Price  1h" />
-            <TextView
-                android:id="@+id/price24h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Price 24h" />
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                >
+                <TextView
+                    android:id="@+id/coinTrend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price Trend:" />
+                <TextView
+                    android:id="@+id/price1h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price  1h" />
+                <TextView
+                    android:id="@+id/price24h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/light_charcoal"
+                    android:text="Price 24h" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -78,6 +86,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@id/priceChange"
             android:textStyle="bold"
+            android:textColor="@color/light_charcoal"
             android:text="Price in BTC/ETH" />
 
         <LinearLayout
@@ -95,6 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/light_charcoal"
                 android:text="Price BTC" />
             <TextView
                 android:id="@+id/priceETH"
@@ -102,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:layout_weight="1"
+                android:textColor="@color/light_charcoal"
                 android:text="Price ETH" />
         </LinearLayout>
 
