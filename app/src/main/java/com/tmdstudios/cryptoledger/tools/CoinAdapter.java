@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledger.tools;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,21 +35,38 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
     public void onBindViewHolder(@NonNull CoinAdapter.Viewholder holder, int position) {
         CoinModel model = CoinModelArrayList.get(position);
         holder.coinName.setText(model.getCoin_name());
-        holder.coinPrice.setText("" + model.getCoin_price());
+        holder.coinPrice.setText(model.getCoin_price());
+        String price1h = "1h:  " + model.getPrice1h() + "%";
+        holder.price1h.setText(price1h);
+        if(model.getPrice1h().startsWith("-")){holder.price1h.setTextColor(Color.RED);}
+        else{holder.price1h.setTextColor(Color.GREEN);}
+        String price24h = "24h:  " + model.getPrice24h() + "%";
+        holder.price24h.setText(price24h);
+        if(model.getPrice24h().startsWith("-")){holder.price24h.setTextColor(Color.RED);}
+        else{holder.price24h.setTextColor(Color.GREEN);}
+        holder.priceBTC.setText(model.getPriceBTC());
+        holder.priceETH.setText(model.getPriceETH());
     }
 
     @Override
-    public int getItemCount() {
-        return CoinModelArrayList.size();
-    }
+    public int getItemCount() {return CoinModelArrayList.size();}
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        private TextView coinName, coinPrice;
+        private final TextView coinName;
+        private final TextView coinPrice;
+        private final TextView price1h;
+        private final TextView price24h;
+        private final TextView priceBTC;
+        private final TextView priceETH;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             coinName = itemView.findViewById(R.id.coinName);
             coinPrice = itemView.findViewById(R.id.coinPrice);
+            price1h = itemView.findViewById(R.id.price1h);
+            price24h= itemView.findViewById(R.id.price24h);
+            priceBTC = itemView.findViewById(R.id.priceBTC);
+            priceETH = itemView.findViewById(R.id.priceETH);
         }
     }
 }

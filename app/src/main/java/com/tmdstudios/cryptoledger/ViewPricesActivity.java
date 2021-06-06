@@ -31,8 +31,6 @@ import java.util.ArrayList;
 public class ViewPricesActivity extends AppCompatActivity {
     private Button refreshBtn;
     private TextView tickerText;
-    private CardView cardView;
-    private TextView coinName;
 
     private RecyclerView coinRV;
     private ArrayList<CoinModel> coinModelArrayList;
@@ -54,28 +52,14 @@ public class ViewPricesActivity extends AppCompatActivity {
             }
         });
 
-//        cardView = findViewById(R.id.cardView);
-//        coinName = findViewById(R.id.coinName);
-
         Intent getPrices = getIntent();
         tickerText.append(getPrices.getStringExtra("tickerData"));
 
         coinRV = findViewById(R.id.RVCoin);
 
         coinModelArrayList = new ArrayList<>();
-//        coinModelArrayList.add(new CoinModel("Bitcoin", 44500));
-//        coinModelArrayList.add(new CoinModel("Ethereum", 2300));
-//        coinModelArrayList.add(new CoinModel("Monero", 520));
-//        coinModelArrayList.add(new CoinModel("Ripple", 1));
-//        coinModelArrayList.add(new CoinModel("Doge", .30f));
-//        coinModelArrayList.add(new CoinModel("Cardano", 2.30f));
 
         getPrices();
-
-//        CoinAdapter coinAdapter = new CoinAdapter(this, coinModelArrayList);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-//        coinRV.setLayoutManager(linearLayoutManager);
-//        coinRV.setAdapter(coinAdapter);
     }
 
     private void getPrices(){
@@ -88,9 +72,15 @@ public class ViewPricesActivity extends AppCompatActivity {
                         try {
                             for(int i = 0; i < response.length(); i++){
                                 JSONObject coin = response.getJSONObject(i);
-                                String name = coin.getString("symbol");
-                                String price = coin.getString("price");
-                                coinModelArrayList.add(new CoinModel(name, Float.parseFloat(price)));
+                                String name = coin.getString("name") + " (" + coin.getString("symbol") + ")";
+                                String price = "Price: $" + coin.getString("price").substring(0,coin.getString("price").indexOf(".")+3);
+                                String price1h = coin.getString("price_1h");
+                                String price24h = coin.getString("price_24h");
+                                String priceBTC = "BTC: " + coin.getString("price_btc");
+                                String priceETH = "ETH: " + coin.getString("price_eth");
+                                price1h = price1h.substring(0, price1h.indexOf(".")+2);
+                                price24h = price24h.substring(0, price24h.indexOf(".")+2);
+                                coinModelArrayList.add(new CoinModel(name, price, price1h, price24h, priceBTC, priceETH));
                             }
                             CoinAdapter coinAdapter = new CoinAdapter(ViewPricesActivity.this, coinModelArrayList);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ViewPricesActivity.this, LinearLayoutManager.VERTICAL, false);

@@ -29,70 +29,81 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/coinPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/coinName"
+            android:text="Coin Price" />
+
         <LinearLayout
+            android:id="@+id/priceChange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/topRow"
-            android:layout_below="@id/coinName"
-            android:orientation="horizontal"
+            android:layout_below="@id/coinPrice"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
             >
-            <TextView
-                android:id="@+id/coinPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="2dp"
-                android:text="Coin Price" />
-
             <TextView
                 android:id="@+id/coinTrend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:drawablePadding="2dp"
-                android:text="Coin Trend" />
-
+                android:text="Price Trend:" />
+            <TextView
+                android:id="@+id/price1h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Price  1h" />
+            <TextView
+                android:id="@+id/price24h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Price 24h" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/coinInCrypto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/priceChange"
+            android:textStyle="bold"
+            android:text="Price in BTC/ETH" />
+
         <LinearLayout
+            android:id="@+id/cryptoPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bottomRow"
-            android:layout_below="@id/topRow"
-            android:orientation="horizontal"
-            >
+            android:layout_below="@id/coinInCrypto"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:drawablePadding="2dp">
             <TextView
                 android:id="@+id/priceBTC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="2dp"
-                android:text="BTC Price" />
-
+                android:text="Price BTC" />
             <TextView
                 android:id="@+id/priceETH"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="right"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:drawablePadding="2dp"
-                android:text="ETH Price" />
-
+                android:layout_weight="1"
+                android:text="Price ETH" />
         </LinearLayout>
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
