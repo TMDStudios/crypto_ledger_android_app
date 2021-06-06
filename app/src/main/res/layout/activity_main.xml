@@ -30,10 +30,12 @@
         android:paddingRight="24dp">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="2dp"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:id="@+id/APIKey"
             android:hint="Enter your API Key"
             >
@@ -42,10 +44,10 @@
 
         <Button
             android:id="@+id/login"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".25"
-            android:width="32dp"
+            android:layout_weight="1.5"
+            android:width="48dp"
             android:text="Log in" />
 
     </LinearLayout>

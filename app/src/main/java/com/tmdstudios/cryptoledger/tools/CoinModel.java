@@ -1,4 +1,4 @@
-package com.tmdstudios.cryptoledger;
+package com.tmdstudios.cryptoledger.tools;
 
 public class CoinModel {
 

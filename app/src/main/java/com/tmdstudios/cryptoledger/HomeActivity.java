@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.tmdstudios.cryptoledger.tools.GetLedger;
 import com.tmdstudios.cryptoledger.tools.SwipeListener;
 
 import org.json.JSONArray;
@@ -43,6 +44,8 @@ public class HomeActivity extends AppCompatActivity {
     private int availableCoins = 0;
     private List<List<String>> coins = new ArrayList<>();
     private Button viewAllPricesBtn;
+
+    private GetLedger ledgerGetter;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -82,6 +85,8 @@ public class HomeActivity extends AppCompatActivity {
 
         Intent getKey = getIntent();
         API_KEY = getKey.getStringExtra("api_key");
+
+//        ledgerGetter = new GetLedger(API_KEY, HomeActivity.this);
 
         getDataBtn = findViewById(R.id.get_data);
         getDataBtn.setOnClickListener(new View.OnClickListener() {

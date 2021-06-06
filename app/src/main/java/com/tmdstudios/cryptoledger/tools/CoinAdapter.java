@@ -1,10 +1,12 @@
-package com.tmdstudios.cryptoledger;
+package com.tmdstudios.cryptoledger.tools;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.tmdstudios.cryptoledger.R;
 
 import java.util.ArrayList;
 

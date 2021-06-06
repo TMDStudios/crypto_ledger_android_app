@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tmdstudios.cryptoledger.tools.CoinAdapter;
+import com.tmdstudios.cryptoledger.tools.CoinModel;
+
 import java.util.ArrayList;
 
 public class ViewPricesActivity extends AppCompatActivity {
