@@ -2,6 +2,8 @@ package com.tmdstudios.cryptoledger;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,7 +22,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.tmdstudios.cryptoledger.tools.CoinAdapter;
+import com.tmdstudios.cryptoledger.tools.CoinModel;
 import com.tmdstudios.cryptoledger.tools.GetLedger;
+import com.tmdstudios.cryptoledger.tools.LedgerCoinAdapter;
+import com.tmdstudios.cryptoledger.tools.LedgerCoinModel;
 import com.tmdstudios.cryptoledger.tools.SwipeListener;
 
 import org.json.JSONArray;
@@ -34,9 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button getDataBtn;
     private Button clearDataBtn;
     private TextView textView;
-    private TextView tempText;
     private String API_KEY;
-    private CardView cardView;
     private TextView coinName;
     private TextView coinPrice;
     private TextView coinTrend;
@@ -44,6 +48,9 @@ public class HomeActivity extends AppCompatActivity {
     private int availableCoins = 0;
     private List<List<String>> coins = new ArrayList<>();
     private Button viewAllPricesBtn;
+
+    private RecyclerView ledgerCoinRV;
+    private ArrayList<LedgerCoinModel> ledgerCoinModelArrayList;
 
     private GetLedger ledgerGetter;
 
@@ -53,40 +60,40 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        cardView = findViewById(R.id.cardView);
-        cardView.setOnTouchListener(new SwipeListener(this){
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                super.onTouch(cardView, motionEvent);
-//                Toast.makeText(HomeActivity.this, "Card on touch", Toast.LENGTH_SHORT).show();
-                if(coinNum<availableCoins-1){coinNum++;}else{coinNum=0;}
-//                Toast.makeText(HomeActivity.this, coinNum + "::" + coins.get(coinNum), Toast.LENGTH_SHORT).show();
-                if(availableCoins>0){
-                    coinName.setText(coins.get(coinNum).get(0));
-                    coinPrice.setText("Price: " + coins.get(coinNum).get(1));
-                    coinTrend.setText("Trend: " + coins.get(coinNum).get(2));
-                    if(coins.get(coinNum).get(2).startsWith("-")){coinTrend.setTextColor(Color.RED);}
-                    else{coinTrend.setTextColor(Color.GREEN);}
-                }
-                return false;
-            }
-        });
+        ledgerCoinRV = findViewById(R.id.LedgerCoin);
+
+        ledgerCoinModelArrayList = new ArrayList<>();
+
+//        cardView = findViewById(R.id.cardView);
+//        cardView.setOnTouchListener(new SwipeListener(this){
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                super.onTouch(cardView, motionEvent);
+////                Toast.makeText(HomeActivity.this, "Card on touch", Toast.LENGTH_SHORT).show();
+//                if(coinNum<availableCoins-1){coinNum++;}else{coinNum=0;}
+////                Toast.makeText(HomeActivity.this, coinNum + "::" + coins.get(coinNum), Toast.LENGTH_SHORT).show();
+//                if(availableCoins>0){
+//                    coinName.setText(coins.get(coinNum).get(0));
+//                    coinPrice.setText("Price: " + coins.get(coinNum).get(1));
+//                    coinTrend.setText("Trend: " + coins.get(coinNum).get(2));
+//                    if(coins.get(coinNum).get(2).startsWith("-")){coinTrend.setTextColor(Color.RED);}
+//                    else{coinTrend.setTextColor(Color.GREEN);}
+//                }
+//                return false;
+//            }
+//        });
 
         textView = findViewById(R.id.scrollingText);
         textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         textView.setSelected(true);
 
-        coinName = findViewById(R.id.coinName);
-        coinPrice = findViewById(R.id.coinPrice);
-        coinTrend = findViewById(R.id.coinTrend);
-
-        tempText = findViewById(R.id.tempText);
-        getPrices();
-
         Intent getKey = getIntent();
         API_KEY = getKey.getStringExtra("api_key");
 
-        getDataBtn = findViewById(R.id.get_data);
+        getPrices();
+        getLedger();
+
+        getDataBtn = findViewById(R.id.refresh_ticker);
         getDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        clearDataBtn = findViewById(R.id.clear_data);
+        clearDataBtn = findViewById(R.id.get_ledger);
         clearDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,32 +155,18 @@ public class HomeActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        tempText.setText("");
                         try {
                             availableCoins=response.length();
                             for(int i = 0; i < response.length(); i++){
                                 JSONObject coin = response.getJSONObject(i);
                                 String name = coin.getString("name");
-                                String price = coin.getString("total_value");
-                                tempText.append(name + " Total Value: " + price.substring(0,price.length()-6) + "\n");
-                                String currentPrice = coin.getString("current_price");
-                                String priceDifference = coin.getString("price_difference");
-                                if(currentPrice.length()>8){
-                                    currentPrice = currentPrice.substring(0,currentPrice.length()-6);
-                                }
-                                priceDifference = priceDifference.substring(0,8);
-                                coinName.setText(coin.getString("name"));
-                                coinPrice.setText("Price: " + currentPrice);
-                                coinTrend.setText("Trend: " + priceDifference);
-                                if(priceDifference.startsWith("-")){coinTrend.setTextColor(getResources().getColor(R.color.design_default_color_error));}
-                                else{coinTrend.setTextColor(getResources().getColor(R.color.black));}
-                                coins.add(new ArrayList<>());
-                                coins.get(i).add(coin.getString("name"));
-                                if(currentPrice.length()>8){
-                                    coins.get(i).add(currentPrice.substring(0,currentPrice.length()-6));
-                                }else{coins.get(i).add(currentPrice);}
-                                coins.get(i).add(priceDifference);
+                                String price = "Price: $" + coin.getString("current_price").substring(0,coin.getString("current_price").indexOf(".")+3);
+                                ledgerCoinModelArrayList.add(new LedgerCoinModel(name, price));
                             }
+                            LedgerCoinAdapter ledgerCoinAdapter = new LedgerCoinAdapter(HomeActivity.this, ledgerCoinModelArrayList);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
+                            ledgerCoinRV.setLayoutManager(linearLayoutManager);
+                            ledgerCoinRV.setAdapter(ledgerCoinAdapter);
                         } catch (JSONException e) {e.printStackTrace();}
                     }
                 }, new Response.ErrorListener() {
