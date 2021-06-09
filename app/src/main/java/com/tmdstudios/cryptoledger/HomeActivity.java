@@ -41,11 +41,6 @@ public class HomeActivity extends AppCompatActivity {
     private Button clearDataBtn;
     private TextView textView;
     private String API_KEY;
-    private TextView coinName;
-    private TextView coinPrice;
-    private TextView coinTrend;
-    private int coinNum = 0;
-    private int availableCoins = 0;
     private List<List<String>> coins = new ArrayList<>();
     private Button viewAllPricesBtn;
 
@@ -63,25 +58,6 @@ public class HomeActivity extends AppCompatActivity {
         ledgerCoinRV = findViewById(R.id.LedgerCoin);
 
         ledgerCoinModelArrayList = new ArrayList<>();
-
-//        cardView = findViewById(R.id.cardView);
-//        cardView.setOnTouchListener(new SwipeListener(this){
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                super.onTouch(cardView, motionEvent);
-////                Toast.makeText(HomeActivity.this, "Card on touch", Toast.LENGTH_SHORT).show();
-//                if(coinNum<availableCoins-1){coinNum++;}else{coinNum=0;}
-////                Toast.makeText(HomeActivity.this, coinNum + "::" + coins.get(coinNum), Toast.LENGTH_SHORT).show();
-//                if(availableCoins>0){
-//                    coinName.setText(coins.get(coinNum).get(0));
-//                    coinPrice.setText("Price: " + coins.get(coinNum).get(1));
-//                    coinTrend.setText("Trend: " + coins.get(coinNum).get(2));
-//                    if(coins.get(coinNum).get(2).startsWith("-")){coinTrend.setTextColor(Color.RED);}
-//                    else{coinTrend.setTextColor(Color.GREEN);}
-//                }
-//                return false;
-//            }
-//        });
 
         textView = findViewById(R.id.scrollingText);
         textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -156,7 +132,6 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            availableCoins=response.length();
                             for(int i = 0; i < response.length(); i++){
                                 JSONObject coin = response.getJSONObject(i);
                                 String name = coin.getString("name");

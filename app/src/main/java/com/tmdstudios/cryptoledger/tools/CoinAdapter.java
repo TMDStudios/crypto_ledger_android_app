@@ -1,17 +1,23 @@
 package com.tmdstudios.cryptoledger.tools;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tmdstudios.cryptoledger.R;
+import com.tmdstudios.cryptoledger.ViewPricesActivity;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
@@ -67,6 +73,29 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
             price24h= itemView.findViewById(R.id.price24h);
             priceBTC = itemView.findViewById(R.id.priceBTC);
             priceETH = itemView.findViewById(R.id.priceETH);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Buy " + coinName.getText());
+                    final EditText amount = new EditText(context);
+                    amount.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    builder.setView(amount);
+                    builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(context, "Cancelled", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.setPositiveButton("BUY", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(context, "bought " + coinName.getText(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    builder.show();
+                }
+            });
         }
     }
 }

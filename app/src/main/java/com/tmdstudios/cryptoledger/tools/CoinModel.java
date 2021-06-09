@@ -1,5 +1,7 @@
 package com.tmdstudios.cryptoledger.tools;
 
+import android.view.View;
+
 public class CoinModel {
 
     private final String coin_name;
