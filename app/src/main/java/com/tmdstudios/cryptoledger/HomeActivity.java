@@ -1,16 +1,13 @@
 package com.tmdstudios.cryptoledger;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,12 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.tmdstudios.cryptoledger.tools.CoinAdapter;
-import com.tmdstudios.cryptoledger.tools.CoinModel;
 import com.tmdstudios.cryptoledger.tools.GetLedger;
 import com.tmdstudios.cryptoledger.tools.LedgerCoinAdapter;
 import com.tmdstudios.cryptoledger.tools.LedgerCoinModel;
-import com.tmdstudios.cryptoledger.tools.SwipeListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +35,6 @@ public class HomeActivity extends AppCompatActivity {
     private Button clearDataBtn;
     private TextView textView;
     private String API_KEY;
-    private List<List<String>> coins = new ArrayList<>();
     private Button viewAllPricesBtn;
 
     private RecyclerView ledgerCoinRV;

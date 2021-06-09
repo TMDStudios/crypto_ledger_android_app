@@ -13,4 +13,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/charcoal</item>
+        <item name="android:textColor">@color/baby_blue</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
 </resources>

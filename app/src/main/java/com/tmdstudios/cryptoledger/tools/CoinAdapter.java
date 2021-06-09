@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tmdstudios.cryptoledger.R;
-import com.tmdstudios.cryptoledger.ViewPricesActivity;
 
 import java.util.ArrayList;
 
@@ -76,9 +75,12 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.CustomAlertDialog);
                     builder.setTitle("Buy " + coinName.getText());
                     final EditText amount = new EditText(context);
+                    amount.setTextColor(Color.WHITE);
+                    amount.setHintTextColor(Color.rgb(120, 200, 240));
+                    amount.setHint("Enter Amount");
                     amount.setInputType(InputType.TYPE_CLASS_NUMBER);
                     builder.setView(amount);
                     builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
