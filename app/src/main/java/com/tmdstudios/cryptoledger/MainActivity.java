@@ -111,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void guest(){
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, ViewPricesActivity.class);
+        String prices = "" + textView.getText();
+        intent.putExtra("tickerData", prices);
         startActivity(intent);
     }
 }

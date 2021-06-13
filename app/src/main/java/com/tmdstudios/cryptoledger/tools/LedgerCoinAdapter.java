@@ -1,6 +1,7 @@
 package com.tmdstudios.cryptoledger.tools;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,10 @@ public class LedgerCoinAdapter extends RecyclerView.Adapter<LedgerCoinAdapter.Vi
         LedgerCoinModel model = LedgerCoinModelArrayList.get(position);
         holder.coinName.setText(model.getCoin_name());
         holder.coinPrice.setText(model.getCoin_price());
+        String coinTrend = "Trend:  " + model.getCoin_trend() + "%";
+        holder.coinTrend.setText(coinTrend);
+        if(model.getCoin_trend().startsWith("-")){holder.coinTrend.setTextColor(Color.RED);}
+        else{holder.coinTrend.setTextColor(Color.argb(255,34,139,34));}
     }
 
     @Override
@@ -43,11 +48,13 @@ public class LedgerCoinAdapter extends RecyclerView.Adapter<LedgerCoinAdapter.Vi
     public class Viewholder extends RecyclerView.ViewHolder {
         private final TextView coinName;
         private final TextView coinPrice;
+        private final TextView coinTrend;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            coinName = itemView.findViewById(R.id.coinName);
-            coinPrice = itemView.findViewById(R.id.coinPrice);
+            coinName = itemView.findViewById(R.id.ledgerCoinName);
+            coinPrice = itemView.findViewById(R.id.ledgerCoinPrice);
+            coinTrend = itemView.findViewById(R.id.ledgerCoinTrend);
         }
     }
 }

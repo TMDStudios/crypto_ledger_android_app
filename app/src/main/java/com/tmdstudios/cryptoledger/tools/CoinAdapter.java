@@ -11,12 +11,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.tmdstudios.cryptoledger.R;
+import com.tmdstudios.cryptoledger.ViewPricesActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
@@ -79,7 +91,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
                     builder.setTitle("Buy " + coinName.getText());
                     final EditText amount = new EditText(context);
                     amount.setTextColor(Color.WHITE);
-                    amount.setHintTextColor(Color.rgb(120, 200, 240));
+                    amount.setHintTextColor(Color.rgb(120, 180, 240));
                     amount.setHint("Enter Amount");
                     amount.setInputType(InputType.TYPE_CLASS_NUMBER);
                     builder.setView(amount);
@@ -92,6 +104,7 @@ public class CoinAdapter extends RecyclerView.Adapter<CoinAdapter.Viewholder> {
                     builder.setPositiveButton("BUY", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+//                            when adding buy function, make sure to check login status (valid API)
                             Toast.makeText(context, "bought " + coinName.getText(), Toast.LENGTH_SHORT).show();
                         }
                     });

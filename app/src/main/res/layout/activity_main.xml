@@ -30,7 +30,7 @@
         android:paddingRight="24dp">
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="2dp"
@@ -45,10 +45,8 @@
 
         <Button
             android:id="@+id/login"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:width="48dp"
             android:text="Log in" />
 
     </LinearLayout>

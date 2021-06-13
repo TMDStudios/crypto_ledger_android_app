@@ -129,7 +129,9 @@ public class HomeActivity extends AppCompatActivity {
                                 JSONObject coin = response.getJSONObject(i);
                                 String name = coin.getString("name");
                                 String price = "Price: $" + coin.getString("current_price").substring(0,coin.getString("current_price").indexOf(".")+3);
-                                ledgerCoinModelArrayList.add(new LedgerCoinModel(name, price));
+                                String trend = coin.getString("price_difference");
+                                trend = trend.substring(0, trend.indexOf(".")+2);
+                                ledgerCoinModelArrayList.add(new LedgerCoinModel(name, price, trend));
                             }
                             LedgerCoinAdapter ledgerCoinAdapter = new LedgerCoinAdapter(HomeActivity.this, ledgerCoinModelArrayList);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
